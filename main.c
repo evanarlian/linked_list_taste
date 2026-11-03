@@ -45,7 +45,7 @@ void list_free(Node* head) {
 }
 
 void push_front(Node** head, int val) {
-    // Node ** act as another struct wrapping Node*. This mindset will make thinking easier.
+    // Node ** act as another struct wrapping Node*. This mindset will make thinking easier (TODO is this right?)
     // for example LinkedList { Node* node } and then we accept LinkedList* instead
     Node* new_node = node_new(val);
     Node* old_head = *head;
@@ -64,9 +64,9 @@ void push_back(Node** head, int val) {
     }
     // at this point walk is NULL and prev can be NULL or one before walk
     if (prev == NULL) {
-        prev->next = new_node;
-    } else {
         *head = new_node;
+    } else {
+        prev->next = new_node;
     }
 }
 
@@ -147,7 +147,52 @@ bool remove_value(Node** head, int val) {
 }
 
 int main() {
-    // make a lot
-    const int** const** const** a = NULL;
+    Node* head = node_new(0);
+    list_print(head);
+    push_front(&head, 1);
+    push_front(&head, 2);
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    push_back(&head, 3);
+    push_back(&head, 4);
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    insert_at(&head, 3, 7);
+    insert_at(&head, 3, 7);
+    insert_at(&head, 100, 700);
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    Node* found_node = find(head, 4);
+    if (found_node) {
+        printf("node found with value: %d\n", found_node->val);
+    } else {
+        printf("node not found");
+    }
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    int out;
+    bool pop_front_ok = pop_front(&head, &out);
+    if (pop_front_ok) {
+        printf("pop front ok with value: %d\n", out);
+    } else {
+        printf("pop front fails due to empty\n");
+    }
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    bool remove_value_ok = remove_value(&head, 4);
+    if (remove_value_ok) {
+        printf("remove value ok\n");
+    } else {
+        printf("remove value fails due to empty\n");
+    }
+    list_print(head);
+    printf("current list length: %zu\n", list_len(head));
+
+    list_free(head);
     return 0;
 }
