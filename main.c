@@ -10,7 +10,7 @@ struct Node {
 typedef struct Node Node;
 
 Node* node_new(int val) {
-    Node* node = (Node*)malloc(sizeof(Node));
+    Node* node = malloc(sizeof(Node)); // C does not need (Node*) cast here
     node->val = val;
     node->next = NULL;
     return node;
@@ -25,9 +25,9 @@ void list_print(const Node* const head) {
     printf("NULL\n");
 }
 
-size_t list_len(Node* head) {
+size_t list_len(const Node* head) {
     size_t length = 0;
-    Node* walk = head;
+    const Node* walk = head;
     while (walk != NULL) {
         length += 1;
         walk = walk->next;
@@ -169,7 +169,7 @@ int main() {
     if (found_node) {
         printf("node found with value: %d\n", found_node->val);
     } else {
-        printf("node not found");
+        printf("node not found\n");
     }
     list_print(head);
     printf("current list length: %zu\n", list_len(head));
@@ -188,7 +188,7 @@ int main() {
     if (remove_value_ok) {
         printf("remove value ok\n");
     } else {
-        printf("remove value fails due to empty\n");
+        printf("remove value fails due to not found\n");
     }
     list_print(head);
     printf("current list length: %zu\n", list_len(head));
