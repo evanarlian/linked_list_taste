@@ -30,13 +30,14 @@ size_t list_len(const Node* head) {
     return length;
 }
 
-void list_free(Node* head) {
-    Node* walk = head;
+void list_free(Node** head) {
+    Node* walk = *head;
     while (walk != NULL) {
-        Node* prev = walk;
+        Node* to_be_deleted = walk;
         walk = walk->next;
-        free(prev);
+        free(to_be_deleted);
     }
+    *head = NULL;
 }
 
 void push_front(Node** head, int val) {

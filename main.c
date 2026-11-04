@@ -16,5 +16,6 @@ int main() {
     bool ok = remove_value(&head, to_be_removed);
     printf("removed? %s\n", ok ? "y" : "n");
     list_print(head);
+    list_free(&head);
     return 0;
 }

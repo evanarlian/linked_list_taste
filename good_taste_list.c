@@ -30,13 +30,14 @@ size_t list_len(const Node* head) {
     return length;
 }
 
-void list_free(Node* head) {
-    Node* walk = head;
+void list_free(Node** head) {
+    Node* walk = *head;
     while (walk != NULL) {
-        Node* prev = walk;
+        Node* to_be_deleted = walk;
         walk = walk->next;
-        free(prev);
+        free(to_be_deleted);
     }
+    *head = NULL;
 }
 
 void push_front(Node** head, int val) {
@@ -116,13 +117,13 @@ bool pop_front(Node** head, int* out) {
 // modified a little bit because the arguments are different
 bool remove_value(Node** indirect, int val) {
     // linus calls Node** head as Node** indirect
-    while ((*indirect)->val != val) {
+    while (!(*indirect == NULL || (*indirect)->val == val)) {
         indirect = &(*indirect)->next;
     }
-    if ((*indirect)->next == NULL) {
+    if (*indirect == NULL) {
         return false;
     }
-    // .. and just remove it    
+    // .. and just remove it
     Node* to_be_deleted = *indirect;
     *indirect = to_be_deleted->next;
     free(to_be_deleted);
