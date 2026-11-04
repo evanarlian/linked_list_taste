@@ -55,33 +55,21 @@ void push_back(Node** indirect, int val) {
     *indirect = new_node;
 }
 
-bool insert_at(Node** head, size_t idx, int val) {
-    // TODO(good taste): can be made cleaner?
-    // this can be very messy but we can make it less messy by doing double walk
-    size_t len = list_len(*head);
-    // 0 1 2 3, length = 4, that means max index is 4
-    if (idx > len) {
+bool insert_at(Node** indirect, size_t idx, int val) {
+    // walk the indirect until we find a stopping point
+    size_t curr_idx = 0;
+    while (!(*indirect == NULL || curr_idx == idx)) {
+        indirect = &(*indirect)->next;
+        curr_idx += 1;
+    }
+    // at this point we are stopped either by *indirect is pointing at null or we reached the target index first
+    // the curr_idx must be checked first since if both conditions are true, the insert op is still valid
+    if (curr_idx != idx) {
         return false;
     }
-    // idx 0 is special case
-    if (idx == 0) {
-        push_front(head, val);
-        return true;
-    }
-    // we need to put prev on idx-1, lets say idx=2, p must be at 1
-    // 0 1 2 n
-    // w       ; init
-    // p w     ; i=0
-    //   p w   ; i=1
-    Node* walk = *head;
-    Node* prev = NULL;
-    for (size_t i = 0; i < idx; ++i) {
-        prev = walk;
-        walk = walk->next;
-    }
     Node* new_node = node_new(val);
-    prev->next = new_node;
-    new_node->next = walk;
+    new_node->next = *indirect;
+    *indirect = new_node;
     return true;
 }
 
