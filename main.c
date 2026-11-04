@@ -10,12 +10,28 @@ int main() {
     push_back(&head, 5);
     list_print(head);
 
-    // remove item
+    // remove middle item
     int to_be_removed = 2;
     printf("want to remove: %d\n", to_be_removed);
     bool ok = remove_value(&head, to_be_removed);
     printf("removed? %s\n", ok ? "y" : "n");
     list_print(head);
+
+    // remove front item
+    to_be_removed = 0;
+    printf("want to remove: %d\n", to_be_removed);
+    ok = remove_value(&head, to_be_removed);
+    printf("removed? %s\n", ok ? "y" : "n");
+    list_print(head);
+
+    // remove missing item
+    to_be_removed = 100;
+    printf("want to remove: %d\n", to_be_removed);
+    ok = remove_value(&head, to_be_removed);
+    printf("removed? %s\n", ok ? "y" : "n");
+    list_print(head);
+
+    // free to prevent asan going wild
     list_free(&head);
     return 0;
 }

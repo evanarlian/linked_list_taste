@@ -31,25 +31,25 @@ static int tests_run = 0;
 static int tests_failed = 0;
 
 // Run one test function and count it as failed if any CHECK inside it failed.
-#define RUN(test)                                         \
-    do {                                                  \
-        int failed_before = checks_failed;                \
-        tests_run++;                                      \
-        test();                                           \
-        if (checks_failed != failed_before) {             \
-            tests_failed++;                               \
-            fprintf(stderr, "  FAIL %s\n\n", #test);      \
-        }                                                 \
+#define RUN(test)                                    \
+    do {                                             \
+        int failed_before = checks_failed;           \
+        tests_run++;                                 \
+        test();                                      \
+        if (checks_failed != failed_before) {        \
+            tests_failed++;                          \
+            fprintf(stderr, "  FAIL %s\n\n", #test); \
+        }                                            \
     } while (0)
 
-#define CHECK(cond)                                                                        \
-    do {                                                                                   \
-        checks_run++;                                                                      \
-        if (!(cond)) {                                                                     \
-            checks_failed++;                                                               \
+#define CHECK(cond)                                                                           \
+    do {                                                                                      \
+        checks_run++;                                                                         \
+        if (!(cond)) {                                                                        \
+            checks_failed++;                                                                  \
             fprintf(stderr, "%s:%d: in %s: CHECK failed: %s\n", __FILE__, __LINE__, __func__, \
-                    #cond);                                                                \
-        }                                                                                  \
+                    #cond);                                                                   \
+        }                                                                                     \
     } while (0)
 
 // Build a list from literal values: LIST(1, 2, 3)
@@ -252,7 +252,7 @@ static void test_insert_at_past_end_fails(void) {
     Node* head = LIST(1, 2, 3);
     CHECK(insert_at(&head, 4, 9) == false);
     CHECK(insert_at(&head, 100, 9) == false);
-    CHECK_LIST(head, 1, 2, 3);  // list unchanged
+    CHECK_LIST(head, 1, 2, 3); // list unchanged
     list_free(&head);
 }
 
@@ -297,7 +297,7 @@ static void test_pop_front_empty(void) {
     int out = -12345;
     CHECK(pop_front(&head, &out) == false);
     CHECK(head == NULL);
-    CHECK(out == -12345);  // out untouched on failure
+    CHECK(out == -12345); // out untouched on failure
 }
 
 static void test_pop_front_one(void) {
@@ -366,7 +366,7 @@ static void test_remove_value_tail(void) {
 static void test_remove_value_missing(void) {
     Node* head = LIST(1, 2, 3);
     CHECK(remove_value(&head, 4) == false);
-    CHECK_LIST(head, 1, 2, 3);  // list unchanged
+    CHECK_LIST(head, 1, 2, 3); // list unchanged
     list_free(&head);
 }
 
