@@ -8,10 +8,10 @@ struct Node {
     Node* next;
 };
 
-typedef struct LinkedList LinkedList;
-struct LinkedList {
-    Node* head;
-};
+// typedef struct LinkedList LinkedList;
+// struct LinkedList {
+//     Node* head;
+// };
 
 Node* node_new(int val);
 void list_print(const Node* const head);
