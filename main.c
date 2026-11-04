@@ -10,6 +10,10 @@ int main() {
     push_back(&head, 5);
     list_print(head);
 
+    // for testing insert_at
+    insert_at(&head, 2, 100);
+    list_print(head);
+
     // remove middle item
     int to_be_removed = 2;
     printf("want to remove: %d\n", to_be_removed);
@@ -25,7 +29,7 @@ int main() {
     list_print(head);
 
     // remove missing item
-    to_be_removed = 100;
+    to_be_removed = -1;
     printf("want to remove: %d\n", to_be_removed);
     ok = remove_value(&head, to_be_removed);
     printf("removed? %s\n", ok ? "y" : "n");

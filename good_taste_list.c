@@ -62,12 +62,13 @@ bool insert_at(Node** indirect, size_t idx, int val) {
         indirect = &(*indirect)->next;
         curr_idx += 1;
     }
-    // at this point we are stopped either by *indirect is pointing at null or we reached the target index first
+    // at this point, either *indirect is pointing at NULL or reached the target index first
     // the curr_idx must be checked first since if both conditions are true, the insert op is still valid
     if (curr_idx != idx) {
         return false;
     }
     Node* new_node = node_new(val);
+    // everything is general case
     new_node->next = *indirect;
     *indirect = new_node;
     return true;
