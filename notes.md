@@ -1,7 +1,6 @@
 # notes
 
 ## how to read pointers
-
 Rule of thumb:
 * We separate declaration in 2 parts `const int* const` becomes `const int` + `* const`. Now we can clearly see which one is constant.
 * The same parts logic can be extended to any number of pointers, such as `const int***const*const*`, which is `const int` + `*` + `*` + `*const` + `*const` + `*`.
@@ -56,3 +55,28 @@ int* sneaky = &eggs;
 *sneaky = 5;  // allowed!!
 sneaky = &apples;  // allowed!!
 ```
+
+## wrappers
+In proper library, the better thing to do is to use yet another struct to wrap Node, for example
+```c
+typedef struct Node Node;
+struct Node {
+    int val;
+    Node* next;
+};
+
+typedef struct LinkedList LinkedList;
+struct LinkedList {
+    Node* head;
+};
+```
+
+Why?
+* We can always set func to accept `LinkedList*` instead of worrying about `Node*` or `Node**`. The API will be very consistent. Note that `Node* head` means the head on the caller side will not change, while `Node** head` means the function might modify head.
+* Another useful members can be added to `LinkedList` such as `Node* tail` and `size_t len`. These 2 can turn O(n) operations to O(1).
+* Users will less likely do dumb shit with raw Node, since it is "encapsulated" inside `LinkedList`.
+* The good taste still works fine with `LinkedList`
+  * The OG Linus way: `Node** indirect = &head;`
+  * The clean API with good taste: `Node** indirect = &list->head`
+
+I just decided not to use `LinkedList` for now to drive the point the explanation clearer.
