@@ -146,53 +146,37 @@ bool remove_value(Node** head, int val) {
     return true;
 }
 
-int main() {
-    Node* head = node_new(0);
-    list_print(head);
-    push_front(&head, 1);
-    push_front(&head, 2);
-    list_print(head);
-    printf("current list length: %zu\n", list_len(head));
+bool remove_value_good_taste(Node** indirect, Node* entry) {
+    while ((*indirect) != entry) {
+        // indirect = &(*indirect)->next;
+        indirect = &(**indirect).next;
+    }
+    // .. and just remove it
+    *indirect = entry->next;
+    return true;
+}
 
+int main() {
+    // testing for the linus taste
+    Node* head = node_new(0);
+    push_back(&head, 1);
+    push_back(&head, 2);
     push_back(&head, 3);
     push_back(&head, 4);
+    push_back(&head, 5);
     list_print(head);
-    printf("current list length: %zu\n", list_len(head));
 
-    insert_at(&head, 3, 7);
-    insert_at(&head, 3, 7);
-    insert_at(&head, 100, 700);
+    // remove my way
+    bool r1 = remove_value(&head, 2);
+    printf("[bad taste] removed? %s\n", r1 ? "y" : "n");
     list_print(head);
-    printf("current list length: %zu\n", list_len(head));
+    printf("\n");
 
-    Node* found_node = find(head, 4);
-    if (found_node) {
-        printf("node found with value: %d\n", found_node->val);
-    } else {
-        printf("node not found\n");
-    }
+    // remove linus way
+    Node* entry = head->next->next;
+    printf("[good taste] want to remove: %d\n", entry->val);
+    bool r2 = remove_value_good_taste(&head, entry);
+    printf("[good taste] removed? %s\n", r2 ? "y" : "n");
     list_print(head);
-    printf("current list length: %zu\n", list_len(head));
-
-    int out;
-    bool pop_front_ok = pop_front(&head, &out);
-    if (pop_front_ok) {
-        printf("pop front ok with value: %d\n", out);
-    } else {
-        printf("pop front fails due to empty\n");
-    }
-    list_print(head);
-    printf("current list length: %zu\n", list_len(head));
-
-    bool remove_value_ok = remove_value(&head, 4);
-    if (remove_value_ok) {
-        printf("remove value ok\n");
-    } else {
-        printf("remove value fails due to not found\n");
-    }
-    list_print(head);
-    printf("current list length: %zu\n", list_len(head));
-
-    list_free(head);
     return 0;
 }
