@@ -47,20 +47,12 @@ void push_front(Node** head, int val) {
     *head = new_node;
 }
 
-void push_back(Node** head, int val) {
-    // TODO(good taste): can be made cleaner?
+void push_back(Node** indirect, int val) {
+    while (*indirect != NULL) {
+        indirect = &(*indirect)->next;
+    }
     Node* new_node = node_new(val);
-    Node* walk = *head;
-    Node* prev = NULL;
-    while (walk != NULL) {
-        prev = walk;
-        walk = walk->next;
-    }
-    if (prev == NULL) {
-        *head = new_node;
-    } else {
-        prev->next = new_node;
-    }
+    *indirect = new_node;
 }
 
 bool insert_at(Node** head, size_t idx, int val) {
@@ -102,7 +94,6 @@ Node* find(Node* head, int val) {
 }
 
 bool pop_front(Node** head, int* out) {
-    // TODO(good taste): can be made cleaner?
     Node* front = *head;
     if (front == NULL) {
         return false;
