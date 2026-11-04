@@ -109,6 +109,7 @@ bool pop_front(Node** head, int* out) {
 }
 
 // this is the linus torvalds poor taste example in TED
+// modified a little bit because the arguments are different
 bool remove_value(Node** head, int val) {
     Node* walk = *head;
     Node* prev = NULL;
@@ -116,18 +117,15 @@ bool remove_value(Node** head, int val) {
         prev = walk;
         walk = walk->next;
     }
-    // either we found val (walk is at val) or walk is null
-    // 0 1 2 3 n
-    //       p w  ; remove -1 (walk is null, not found)
-    // w          ; remove 0
-    //   p w      ; remove 2
     if (walk == NULL) {
         return false;
     }
     if (prev == NULL) {
+        // pop front special case
         int out;
         pop_front(head, &out);
     } else {
+        // general case
         prev->next = walk->next;
         free(walk);
     }
