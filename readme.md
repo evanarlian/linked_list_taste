@@ -1,6 +1,8 @@
-# linus_taste
+# Linked List Taste
 
-Understanding the good taste from Linus Torvalds. TED video: https://www.youtube.com/watch?v=o8NPllzkFhE
+Understanding the linked list good taste from Linus Torvalds. TED video: https://www.youtube.com/watch?v=o8NPllzkFhE
+
+Companion code for my blog: https://bamboozl.in/blog/linked-list-taste/
 
 ## usage
 ```bash
