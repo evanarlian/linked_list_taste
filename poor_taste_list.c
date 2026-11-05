@@ -63,7 +63,7 @@ void push_back(Node** head, int val) {
 }
 
 bool insert_at(Node** head, size_t idx, int val) {
-    // walk the indirect until we find a stopping point
+    // walk until we find a stopping point
     Node* prev = NULL;
     Node* walk = *head;
     size_t curr_idx = 0;
