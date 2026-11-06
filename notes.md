@@ -80,3 +80,7 @@ Why?
   * The clean API with good taste: `Node** indirect = &list->head`
 
 I just decided not to use `LinkedList` for now to drive the point the explanation clearer.
+
+
+## sentinel node
+Sentinel (dummy) node allows the removal of special case when `prev` is NULL. See on `sentinel_list.c`. Note that the usage of sentinel node on the stack makes sense if nothing points at it because the stack lifetime will end once the function returns. That means in doubly linked list, we must include the sentinel directly on the list itself, and not some adhoc local stack sentinel.
