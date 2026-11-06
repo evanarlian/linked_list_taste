@@ -12,7 +12,7 @@ IMPLS  := poor_taste good_taste
 TESTS := $(IMPLS:%=$(BUILD)/test_%)
 MAINS := $(IMPLS:%=$(BUILD)/main_%)
 
-.PHONY: all clean test_poor test_good run_poor run_good
+.PHONY: all clean test_poor test_good test_sentinel run_poor run_good main_sentinel
 
 all: $(TESTS) $(MAINS)
 
@@ -36,10 +36,16 @@ test_poor: $(BUILD)/test_poor_taste
 test_good: $(BUILD)/test_good_taste
 	./$<
 
+test_sentinel: $(BUILD)/test_sentinel
+	./$<
+
 run_poor: $(BUILD)/main_poor_taste
 	./$<
 
 run_good: $(BUILD)/main_good_taste
+	./$<
+
+run_sentinel: $(BUILD)/main_sentinel
 	./$<
 
 clean:

@@ -48,13 +48,13 @@ void push_front(Node** head, int val) {
 }
 
 void push_back(Node** head, int val) {
-    Node* new_node = node_new(val);
-    Node* walk = *head;
     Node* prev = NULL;
+    Node* walk = *head;
     while (walk != NULL) {
         prev = walk;
         walk = walk->next;
     }
+    Node* new_node = node_new(val);
     if (prev == NULL) {
         *head = new_node;
     } else {
@@ -111,8 +111,8 @@ bool pop_front(Node** head, int* out) {
 // this is the linus torvalds poor taste example in TED
 // modified a little bit because the arguments are different
 bool remove_value(Node** head, int val) {
-    Node* walk = *head;
     Node* prev = NULL;
+    Node* walk = *head;
     while (!(walk == NULL || walk->val == val)) {
         prev = walk;
         walk = walk->next;
