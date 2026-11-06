@@ -8,6 +8,8 @@ Companion code for my blog: https://bamboozl.in/blog/linked-list-taste/
 ```bash
 make run_poor
 make run_good
+make run_sentinel
 make test_poor
 make test_good
+make test_sentinel
 ```
